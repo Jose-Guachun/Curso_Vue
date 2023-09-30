@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Enviar un title que puede ser cambiado en cualquier momento -->
+        <div>
+            <span v-bind:title="mensaje">
+                Mueva el mouse sobre mí durante unos segundos
+                para ver mi título enlazado dinámicamente.
+            </span>
+        </div>
+
+        <!-- Forma de declarar un if en Vue que es controlado con la variable activo -->
+        <div>
+            <span v-if="activo">
+                Este espacio se mostrara en pantalla una vez activo: true
+            </span>
+        </div>
+
+        <!-- Forma de declarar un ciclo for en Vue segun la lista todos -->
+        <div>
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+        </div>
+
+        <!-- Forma de interatura con la aplicación -->
+        <div>
+            <p>{{message}}</p>
+            <button v-on:click="reservarMensaje">Mensaje invertido</button>
+        </div>
+
+         <!-- Utilizando v-model -->
+        <div>
+            <input v-model="message">
+        </div>
+        
+        <!-- Creacion de componente todo-item -->
+        <ol>
+              <!--
+                Ahora proporcionamos a cada todo-item con el objeto todo
+                que representa, para que su contenido pueda ser dinámico.
+                También necesitamos proporcionar a cada componente con una "clave",
+                que vamos a explicar más adelante.
+                -->
+            <todo-item
+            v-for="item in vegetales"
+            v-bind:todo="item"
+            v-bind:key="item.id"
+            ></todo-item>
+          </ol>
+    </div>
+
+   
+    <script src="src/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> -->
+    <script>
+        // Define un nuevo componente llamado todo-item
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                mensaje: 'Usted cargó esta página el ' + new Date().toLocaleString(),
+                activo: true,
+                message: 'Hola Vue.js',
+                todos: [
+                    { text: 'Aprende JavaScript' },
+                    { text: 'Aprende Vue' },
+                    { text: 'Construir algo inreible' }
+                ],
+                vegetales: [
+                    { id:1, text: 'Brocoli' },
+                    { id:2, text: 'Zanahoria' },
+                    { id:3, text: 'Lechuga' }
+                ]
+            },
+            methods: {
+                reservarMensaje: function () {
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        
+        // app.mensaje = 'Remplaza el mensaje principal de text'
+        // app.activo = false //remplaza el estado activo
+    </script>
+</body>
+
+</html>
