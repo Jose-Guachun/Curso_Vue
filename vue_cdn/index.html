@@ -32,7 +32,10 @@
                 </li>
             </ol>
         </div>
-
+        <!-- Mostrar un mensaje usando la directiva v-text -->
+        <div>
+            <p v-text="mensaje_directiva"></p>
+        </div>
         <!-- Forma de interatura con la aplicación -->
         <div>
             <p>{{message}}</p>
@@ -43,6 +46,7 @@
         <div>
             <input v-model="message">
         </div>
+           <!-- Utilizando v-text -->
         
         <!-- Creacion de componente todo-item -->
         <ol>
@@ -67,7 +71,7 @@
         // Define un nuevo componente llamado todo-item
         Vue.component('todo-item', {
             props: ['todo'],
-            template: '<li>{{ todo.text }}</li>'
+            template: '<li v-text="todo.text"></li>'
         })
 
         let app = new Vue({
@@ -76,6 +80,7 @@
                 mensaje: 'Usted cargó esta página el ' + new Date().toLocaleString(),
                 activo: true,
                 message: 'Hola Vue.js',
+                mensaje_directiva: 'Mensaje ejecutado con directiva v-text',
                 todos: [
                     { text: 'Aprende JavaScript' },
                     { text: 'Aprende Vue' },
